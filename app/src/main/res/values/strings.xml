@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">UAS_PAM_131</string>
+
+    <string name="loading_failed">Failed to load</string>
+    <string name="retry">Retry</string>
+    <string name="loading">Loading</string>
 </resources>
