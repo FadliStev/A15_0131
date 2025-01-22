@@ -13,7 +13,7 @@ import kotlinx.serialization.Serializable
 data class Petugas(
     @PrimaryKey(autoGenerate = true)
     val id_petugas: Int = 0,
-    val nama_petuags: String,
+    val nama_petugas: String,
     val jabatan: String
 )
 
