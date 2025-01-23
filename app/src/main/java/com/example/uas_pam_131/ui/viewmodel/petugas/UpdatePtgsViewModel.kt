@@ -17,11 +17,11 @@ class UpdatePtgsViewModel(
     var ptgsupdateUiState by mutableStateOf(InsertPtgsUiState())
         private set
 
-    private val _id_petugas: Int = checkNotNull(savedStateHandle[DestinasiUpdatePtgs.ID_PETUGAS])
+    private val _id_petugas: String = checkNotNull(savedStateHandle[DestinasiUpdatePtgs.ID_PETUGAS])
 
     init {
         viewModelScope.launch {
-            ptgsupdateUiState = ptgs.getPetugasById(_id_petugas).data
+            ptgsupdateUiState = ptgs.getPetugasById(_id_petugas.toInt()).data
                 .toUiStatePtgs()
         }
     }
@@ -33,7 +33,7 @@ class UpdatePtgsViewModel(
     suspend fun updatePtgs() {
         viewModelScope.launch {
             try {
-                ptgs.updatePetugas(_id_petugas, ptgsupdateUiState.insertPtgsUiEvent.toPtgs())
+                ptgs.updatePetugas(_id_petugas.toInt(), ptgsupdateUiState.insertPtgsUiEvent.toPtgs())
             } catch (e: Exception) {
                 e.printStackTrace()
             }

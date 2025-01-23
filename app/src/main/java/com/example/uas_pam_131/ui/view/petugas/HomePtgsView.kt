@@ -49,7 +49,7 @@ import com.example.uas_pam_131.ui.viewmodel.petugas.HomePtgsViewModel
 fun HomeScreen(
     navigateToltemEntry: ()-> Unit,
     modifier: Modifier = Modifier,
-    onDetailClick: (String) -> Unit = {},
+    onDetailClick: (Int) -> Unit = {},
     viewModel: HomePtgsViewModel = viewModel(factory = PenyediaViewModel.Factory)
 ){
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
@@ -58,7 +58,7 @@ fun HomeScreen(
         topBar = {
             CostumeTopAppBar(
                 title = DestinasiHomePtgs.titleRes,
-                canNavigateBack = false,
+                canNavigateBack = true,
                 scrollBehavior = scrollBehavior,
                 onRefresh = {
                     viewModel.getPtgs()
@@ -94,7 +94,7 @@ fun HomeStatus(
     retryAction: () -> Unit,
     modifier: Modifier = Modifier,
     onDeleteClick: (Petugas) -> Unit = {},
-    onDetailClick: (String) -> Unit
+    onDetailClick: (Int) -> Unit
 ){
     when (homePtgsUiState){
         is HomePtgsUiState.Loading -> OnLoading(modifier = modifier.fillMaxSize())
@@ -110,7 +110,7 @@ fun HomeStatus(
                     petugas = homePtgsUiState.petugas,
                     modifier = modifier.fillMaxWidth(),
                     onDetailClick = {
-                        onDetailClick(it.id_petugas.toString())
+                        onDetailClick(it.id_petugas)
                     },
                     onDeleteClick = {
                         onDeleteClick(it)

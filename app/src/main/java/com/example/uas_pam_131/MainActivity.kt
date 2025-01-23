@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.uas_pam_131.ui.theme.UAS_PAM_131Theme
+import com.example.uas_pam_131.ui.viewmodel.KebunBinatang
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,8 +21,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             UAS_PAM_131Theme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
+                    KebunBinatang(
                         modifier = Modifier.padding(innerPadding)
                     )
                 }

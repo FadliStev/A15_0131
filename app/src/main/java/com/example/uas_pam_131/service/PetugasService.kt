@@ -30,6 +30,6 @@ interface PetugasService {
     @PUT("petugas/{id_petugas}")
     suspend fun updatePetugas(@Path("id_petugas")id_petugas: Int, @Body petugas: Petugas)
 
-    @DELETE("petugas{id_petugas}")
+    @DELETE("petugas/{id_petugas}")
     suspend fun deletePetugas(@Path("id_petugas")id_petugas: Int): Response<Void>
 }

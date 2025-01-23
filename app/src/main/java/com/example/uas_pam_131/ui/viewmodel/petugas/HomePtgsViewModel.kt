@@ -11,17 +11,17 @@ import com.example.uas_pam_131.repository.PetugasRepository
 import kotlinx.coroutines.launch
 import java.io.IOException
 
-sealed class HomeUiState{
-    data class Success(val petugas: List<Petugas>): HomeUiState()
-    object Error: HomeUiState()
-    object Loading: HomeUiState()
+sealed class HomePtgsUiState{
+    data class Success(val petugas: List<Petugas>): HomePtgsUiState()
+    object Error: HomePtgsUiState()
+    object Loading: HomePtgsUiState()
 
 }
 
 class HomePtgsViewModel(
     private val ptgs: PetugasRepository
 ): ViewModel(){
-    var ptgsUiState: HomeUiState by mutableStateOf(HomeUiState.Loading)
+    var ptgsUiState: HomePtgsUiState by mutableStateOf(HomePtgsUiState.Loading)
         private set
 
     init {
@@ -30,14 +30,14 @@ class HomePtgsViewModel(
 
     fun getPtgs(){
         viewModelScope.launch {
-            ptgsUiState = HomeUiState.Loading
+            ptgsUiState = HomePtgsUiState.Loading
             ptgsUiState = try {
-                HomeUiState.Success(ptgs.getPetugas().data)
+                HomePtgsUiState.Success(ptgs.getPetugas().data)
             }catch (e: IOException){
-                HomeUiState.Error
+                HomePtgsUiState.Error
 
             }catch (e: HttpException){
-                HomeUiState.Error
+                HomePtgsUiState.Error
             }
         }
     }
@@ -46,9 +46,9 @@ class HomePtgsViewModel(
             try {
                 ptgs.deletePetugas(id_petugas)
             }catch (e: IOException){
-                HomeUiState.Error
+                HomePtgsUiState.Error
             }catch (e: HttpException){
-                HomeUiState.Error
+                HomePtgsUiState.Error
             }
         }
     }
