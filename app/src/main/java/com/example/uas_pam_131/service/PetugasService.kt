@@ -18,18 +18,18 @@ interface PetugasService {
         "Content-Type: application/json",
     )
 
-    @GET(".")
+    @GET("petugas/")
     suspend fun getPetugas(): PetugasResponse
 
-    @GET("{id_petugas}")
+    @GET("petugas/{id_petugas}")
     suspend fun getPetugasById(@Path("id_petugas") id_petugas: Int): PetugasResponseDetail
 
-    @POST("add")
+    @POST("petugas/add")
     suspend fun insertPetugas(@Body petugas: Petugas)
 
-    @PUT("{id_petugas}")
+    @PUT("petugas/{id_petugas}")
     suspend fun updatePetugas(@Path("id_petugas")id_petugas: Int, @Body petugas: Petugas)
 
-    @DELETE("{id_petugas}")
+    @DELETE("petugas{id_petugas}")
     suspend fun deletePetugas(@Path("id_petugas")id_petugas: Int): Response<Void>
 }
