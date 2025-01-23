@@ -9,8 +9,8 @@ import com.example.uas_pam_131.model.Petugas
 import com.example.uas_pam_131.repository.PetugasRepository
 import kotlinx.coroutines.launch
 
-class DetailViewModel (
-    private val ptgsRepository: PetugasRepository
+class DetailPtgsViewModel (
+    private val ptgs: PetugasRepository
 ): ViewModel(){
     var ptgsUiState by mutableStateOf(DetailPtgsUiState())
         private set
@@ -19,7 +19,7 @@ class DetailViewModel (
         viewModelScope.launch {
             ptgsUiState = DetailPtgsUiState(isLoading = true)
             try {
-                val petugas = ptgsRepository.getPetugasById(id_petugas).data
+                val petugas = ptgs.getPetugasById(id_petugas).data
 
                 ptgsUiState = DetailPtgsUiState(detailPtgsUiEvent = petugas.toDetailPtgsEvent())
             } catch (e: Exception) {
