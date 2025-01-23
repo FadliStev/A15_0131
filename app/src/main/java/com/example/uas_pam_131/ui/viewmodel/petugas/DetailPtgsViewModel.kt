@@ -9,7 +9,7 @@ import com.example.uas_pam_131.model.Petugas
 import com.example.uas_pam_131.repository.PetugasRepository
 import kotlinx.coroutines.launch
 
-class DetailPtgsViewModel (
+class DetailPetugasViewModel (
     private val ptgs: PetugasRepository
 ): ViewModel(){
     var ptgsUiState by mutableStateOf(DetailPtgsUiState())

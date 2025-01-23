@@ -10,7 +10,7 @@ import com.example.uas_pam_131.repository.PetugasRepository
 import com.example.uas_pam_131.ui.navigation.DestinasiUpdatePtgs
 import kotlinx.coroutines.launch
 
-class UpdatePtgsViewModel(
+class UpdatePetugasViewModel(
     savedStateHandle: SavedStateHandle,
     private val ptgs: PetugasRepository
 ): ViewModel() {
