@@ -18,7 +18,7 @@ sealed class HomeUiState{
 
 }
 
-class HomePetugasViewModel(
+class HomePtgsViewModel(
     private val ptgs: PetugasRepository
 ): ViewModel(){
     var ptgsUiState: HomeUiState by mutableStateOf(HomeUiState.Loading)

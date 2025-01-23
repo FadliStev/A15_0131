@@ -10,7 +10,7 @@ import com.example.uas_pam_131.repository.PetugasRepository
 import kotlinx.coroutines.launch
 
 
-class InsertPetugasViewModel(
+class InsertPtgsViewModel(
     private val ptgs: PetugasRepository
 
 ): ViewModel(){
