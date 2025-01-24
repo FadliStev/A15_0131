@@ -29,3 +29,29 @@ object DestinasiUpdatePtgs: DestinasiNavigasi {
     const val ID_PETUGAS = "id_petugas"
     val routesWithArg = "$route/{$ID_PETUGAS}"
 }
+
+object DestinasiHomeHwn: DestinasiNavigasi{
+    override val route = "Home"
+    override val titleRes = "Home Hewan"
+}
+
+object DestinasiInsertHwn: DestinasiNavigasi{
+    override val route= "item_entry"
+    override val titleRes = "Entry Hewan"
+
+}
+
+object DestinasiDetailHwn : DestinasiNavigasi {
+    override val route = "detail/{id_hewan}"
+    override val titleRes = "Detail Hewan"
+    const val ID_HEWAN = "id_hewan"
+    val routeWithArgs = "$route/{$ID_HEWAN}"
+}
+
+object DestinasiUpdateHwn: DestinasiNavigasi {
+    override val route = "update"
+    override val titleRes = "Update Hewan"
+    const val ID_HEWAN = "id_hewan"
+    val routesWithArg = "$route/{$ID_HEWAN}"
+}
+
