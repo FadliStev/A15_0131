@@ -10,6 +10,10 @@ import com.example.uas_pam_131.ui.viewmodel.hewan.DetailHwnViewModel
 import com.example.uas_pam_131.ui.viewmodel.hewan.HomeHwnViewModel
 import com.example.uas_pam_131.ui.viewmodel.hewan.InsertHwnViewModel
 import com.example.uas_pam_131.ui.viewmodel.hewan.UpdateHwnViewModel
+import com.example.uas_pam_131.ui.viewmodel.kandang.DetailKdgViewModel
+import com.example.uas_pam_131.ui.viewmodel.kandang.HomeKdgViewModel
+import com.example.uas_pam_131.ui.viewmodel.kandang.InsertKdgViewModel
+import com.example.uas_pam_131.ui.viewmodel.kandang.UpdateKdgViewModel
 import com.example.uas_pam_131.ui.viewmodel.petugas.DetailPtgsViewModel
 import com.example.uas_pam_131.ui.viewmodel.petugas.HomePtgsViewModel
 import com.example.uas_pam_131.ui.viewmodel.petugas.InsertPtgsViewModel
@@ -25,6 +29,10 @@ object PenyediaViewModel{
         initializer { InsertHwnViewModel(aplikasiKebunBinatang().container.hewanRepository) }
         initializer { DetailHwnViewModel(aplikasiKebunBinatang().container.hewanRepository) }
         initializer { UpdateHwnViewModel(createSavedStateHandle(),aplikasiKebunBinatang().container.hewanRepository) }
+        initializer { HomeKdgViewModel(aplikasiKebunBinatang().container.kandangRepository) }
+        initializer { InsertKdgViewModel(aplikasiKebunBinatang().container.kandangRepository, aplikasiKebunBinatang().container.hewanRepository) }
+        initializer { DetailKdgViewModel(aplikasiKebunBinatang().container.kandangRepository) }
+        initializer { UpdateKdgViewModel(createSavedStateHandle(),aplikasiKebunBinatang().container.kandangRepository) }
     }
 }
 

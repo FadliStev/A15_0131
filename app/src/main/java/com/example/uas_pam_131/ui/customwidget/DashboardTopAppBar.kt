@@ -13,11 +13,12 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -28,7 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.uas_pam_131.R
 
-@Preview(showBackground = false)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DashboardTopAppBar(
     modifier: Modifier = Modifier,
@@ -52,10 +53,10 @@ fun DashboardTopAppBar(
 
             Column {
                 Icon(
-                    Icons.Filled.Menu, contentDescription = "",
+                    Icons.Filled.Home, contentDescription = "",
                     Modifier
                         .padding(6.dp)
-                        .size(40.dp),
+                        .size(30.dp),
                     tint = Color.White
                 )
                 Text(
@@ -74,7 +75,7 @@ fun DashboardTopAppBar(
                     Modifier
                         .padding(6.dp),
                     style = TextStyle(
-                        fontSize = 20.sp,
+                        fontSize = 14.sp,
                         color = Color.White
                     )
 
@@ -85,7 +86,7 @@ fun DashboardTopAppBar(
                 painter = painterResource(id = R.drawable.tamansafari),
                 contentDescription = "",
                 Modifier
-                    .size(100.dp)
+                    .size(125.dp)
                     .clip(shape = CircleShape)
 
             )

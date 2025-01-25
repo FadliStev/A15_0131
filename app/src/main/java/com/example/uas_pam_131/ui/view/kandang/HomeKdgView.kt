@@ -1,4 +1,4 @@
-package com.example.uas_pam_131.ui.view.petugas
+package com.example.uas_pam_131.ui.view.kandang
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -37,32 +37,36 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.uas_pam_131.R
-import com.example.uas_pam_131.model.Petugas
+import com.example.uas_pam_131.model.Hewan
+import com.example.uas_pam_131.model.Kandang
 import com.example.uas_pam_131.ui.customwidget.CostumeTopAppBar
-import com.example.uas_pam_131.ui.navigation.DestinasiHomePtgs
+import com.example.uas_pam_131.ui.navigation.DestinasiHomeHwn
+import com.example.uas_pam_131.ui.navigation.DestinasiHomeKdg
 import com.example.uas_pam_131.ui.viewmodel.PenyediaViewModel
-import com.example.uas_pam_131.ui.viewmodel.petugas.HomePtgsUiState
-import com.example.uas_pam_131.ui.viewmodel.petugas.HomePtgsViewModel
+import com.example.uas_pam_131.ui.viewmodel.hewan.HomeHwnUiState
+import com.example.uas_pam_131.ui.viewmodel.hewan.HomeHwnViewModel
+import com.example.uas_pam_131.ui.viewmodel.kandang.HomeKdgUiState
+import com.example.uas_pam_131.ui.viewmodel.kandang.HomeKdgViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(
+fun HomeScreenKdg(
     navigateToltemEntry: ()-> Unit,
     navigateBack: () -> Unit,
     modifier: Modifier = Modifier,
     onDetailClick: (Int) -> Unit = {},
-    viewModel: HomePtgsViewModel = viewModel(factory = PenyediaViewModel.Factory)
+    viewModel: HomeKdgViewModel = viewModel(factory = PenyediaViewModel.Factory)
 ){
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     Scaffold(
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             CostumeTopAppBar(
-                title = DestinasiHomePtgs.titleRes,
+                title = DestinasiHomeKdg.titleRes,
                 canNavigateBack = true,
                 scrollBehavior = scrollBehavior,
                 onRefresh = {
-                    viewModel.getPtgs()
+                    viewModel.getKdg()
                 },
                 navigateUp = navigateBack
             )
@@ -73,17 +77,17 @@ fun HomeScreen(
                 shape = MaterialTheme.shapes.medium,
                 modifier = Modifier.padding(18.dp)
             ) {
-                Icon(imageVector = Icons.Default.Add, contentDescription = "Add Mahasiswa")
+                Icon(imageVector = Icons.Default.Add, contentDescription = "Add Hewan")
             }
         },
     ) {innerPadding ->
-        HomeStatus(
-            homePtgsUiState = viewModel.ptgsUiState,
-            retryAction = { viewModel.getPtgs() }, modifier = Modifier.padding(innerPadding),
+        HomeStatusKdg(
+            homeKdgUiState = viewModel.kdgUiState,
+            retryAction = { viewModel.getKdg() }, modifier = Modifier.padding(innerPadding),
             onDetailClick = onDetailClick,
             onDeleteClick = {
-                viewModel.deletePtgs(it.id_petugas)
-                viewModel.getPtgs()
+                viewModel.deleteKdg(it.id_kandang)
+                viewModel.getKdg()
             }
         )
 
@@ -91,35 +95,35 @@ fun HomeScreen(
 }
 
 @Composable
-fun HomeStatus(
-    homePtgsUiState: HomePtgsUiState,
+fun HomeStatusKdg(
+    homeKdgUiState: HomeKdgUiState,
     retryAction: () -> Unit,
     modifier: Modifier = Modifier,
-    onDeleteClick: (Petugas) -> Unit = {},
+    onDeleteClick: (Kandang) -> Unit = {},
     onDetailClick: (Int) -> Unit
 ){
-    when (homePtgsUiState){
-        is HomePtgsUiState.Loading -> OnLoading(modifier = modifier.fillMaxSize())
+    when (homeKdgUiState){
+        is HomeKdgUiState.Loading -> OnLoading(modifier = modifier.fillMaxSize())
 
 
-        is HomePtgsUiState.Success ->
-            if (homePtgsUiState.petugas.isEmpty()){
+        is HomeKdgUiState.Success ->
+            if (homeKdgUiState.kandang.isEmpty()){
                 return Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center){
-                    Text(text = "Tidak ada data Kontak")
+                    Text(text = "Tidak ada data Kandang")
                 }
             }else{
-                MhsLayout(
-                    petugas = homePtgsUiState.petugas,
+                KdgLayout(
+                    kandang = homeKdgUiState.kandang,
                     modifier = modifier.fillMaxWidth(),
                     onDetailClick = {
-                        onDetailClick(it.id_petugas)
+                        onDetailClick(it.id_kandang)
                     },
                     onDeleteClick = {
                         onDeleteClick(it)
                     }
                 )
             }
-        is HomePtgsUiState.Error -> OnError(retryAction, modifier = modifier.fillMaxSize())
+        is HomeKdgUiState.Error -> OnError(retryAction, modifier = modifier.fillMaxSize())
     }
 }
 
@@ -148,25 +152,25 @@ fun OnError(retryAction: () -> Unit, modifier: Modifier = Modifier){
 }
 
 @Composable
-fun MhsLayout(
-    petugas: List<Petugas>,
+fun KdgLayout(
+    kandang: List<Kandang>,
     modifier: Modifier = Modifier,
-    onDetailClick: (Petugas) -> Unit,
-    onDeleteClick: (Petugas) -> Unit = {}
+    onDetailClick: (Kandang) -> Unit,
+    onDeleteClick: (Kandang) -> Unit = {}
 ){
     LazyColumn(
         modifier = modifier,
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        items(petugas){ petugas ->
-            MhsCard(
-                petugas = petugas,
+        items(kandang){ kandang ->
+            KdgCard(
+                kandang = kandang,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable { onDetailClick(petugas) },
+                    .clickable { onDetailClick(kandang) },
                 onDeleteClick = {
-                    onDeleteClick(petugas)
+                    onDeleteClick(kandang)
                 }
             )
         }
@@ -174,10 +178,10 @@ fun MhsLayout(
 }
 
 @Composable
-fun MhsCard(
-    petugas: Petugas,
+fun KdgCard(
+    kandang: Kandang,
     modifier: Modifier = Modifier,
-    onDeleteClick:(Petugas) -> Unit = {}
+    onDeleteClick:(Kandang) -> Unit = {}
 ){
     Card(
         modifier = modifier,
@@ -193,20 +197,28 @@ fun MhsCard(
                 verticalAlignment = Alignment.CenterVertically
             ){
                 Text(
-                    text = petugas.nama_petugas,
+                    text = kandang.nama_hewan,
                     style = MaterialTheme.typography.titleLarge
                 )
+
                 Spacer(Modifier.weight(1f))
-                IconButton(onClick = {onDeleteClick(petugas)}) {
+                IconButton(onClick = {onDeleteClick(kandang)}) {
                     Icon(imageVector = Icons.Default.Delete,
                         contentDescription = null)
                 }
 
+
             }
             Text(
-                text = petugas.jabatan,
-                style = MaterialTheme.typography.titleMedium
+                text = kandang.kapasitas,
+                style = MaterialTheme.typography.titleLarge
             )
+            Text(
+                text = kandang.lokasi,
+                style = MaterialTheme.typography.titleLarge
+            )
+
+
         }
     }
 }

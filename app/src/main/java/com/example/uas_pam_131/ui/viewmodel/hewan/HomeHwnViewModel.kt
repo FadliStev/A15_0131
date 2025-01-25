@@ -7,7 +7,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import coil.network.HttpException
 import com.example.uas_pam_131.model.Hewan
+import com.example.uas_pam_131.model.Kandang
 import com.example.uas_pam_131.repository.HewanRepository
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.io.IOException
 
@@ -23,6 +25,7 @@ class HomeHwnViewModel(
 ): ViewModel(){
     var hwnUiState: HomeHwnUiState by mutableStateOf(HomeHwnUiState.Loading)
         private set
+
 
     init {
         getHwn()
@@ -40,6 +43,7 @@ class HomeHwnViewModel(
                 HomeHwnUiState.Error
             }
         }
+
     }
     fun deleteHwn(id_hewan: Int){
         viewModelScope.launch {
@@ -53,3 +57,4 @@ class HomeHwnViewModel(
         }
     }
 }
+

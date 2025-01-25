@@ -1,4 +1,4 @@
-package com.example.uas_pam_131.ui.view.hewan
+package com.example.uas_pam_131.ui.view.kandang
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -29,35 +29,35 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.uas_pam_131.ui.navigation.DestinasiDetailHwn
-import com.example.uas_pam_131.ui.navigation.DestinasiDetailPtgs
+import com.example.uas_pam_131.ui.navigation.DestinasiDetailKdg
 import com.example.uas_pam_131.ui.viewmodel.PenyediaViewModel
 import com.example.uas_pam_131.ui.viewmodel.hewan.DetailHwnViewModel
-import com.example.uas_pam_131.ui.viewmodel.petugas.DetailPtgsViewModel
+import com.example.uas_pam_131.ui.viewmodel.kandang.DetailKdgViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailScreenHwn(
-    id_hewan: Int,
+fun DetailScreenKdg(
+    id_kandang: Int,
     onEditClick: (String) -> Unit = { },
     onDeleteClick: (String) -> Unit = { },
     onBackClick: () -> Unit = { },
     modifier: Modifier = Modifier,
-    viewModel: DetailHwnViewModel = viewModel(factory = PenyediaViewModel.Factory)
+    viewModel: DetailKdgViewModel = viewModel(factory = PenyediaViewModel.Factory)
 ) {
-    val hewan = viewModel.hwnUiState.detailHwnUiEvent
+    val kandang = viewModel.kdgUiState.detailKdgUiEvent
 
-    LaunchedEffect(id_hewan) {
-        viewModel.fetchDetailHewan(id_hewan)
+    LaunchedEffect(id_kandang) {
+        viewModel.fetchDetailKadang(id_kandang)
     }
 
-    val isLoading = viewModel.hwnUiState.isLoading
-    val isError = viewModel.hwnUiState.isError
-    val errorMessage = viewModel.hwnUiState.errorMessage
+    val isLoading = viewModel.kdgUiState.isLoading
+    val isError = viewModel.kdgUiState.isError
+    val errorMessage = viewModel.kdgUiState.errorMessage
 
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text(DestinasiDetailHwn.titleRes) },
+                title = { Text(DestinasiDetailKdg.titleRes) },
                 navigationIcon = {
                     IconButton(onClick = { onBackClick() }) {
                         Icon(
@@ -71,7 +71,7 @@ fun DetailScreenHwn(
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { onEditClick(hewan.id_hewan.toString()) },
+                onClick = { onEditClick(kandang.id_kandang.toString()) },
             ) {
                 Icon(Icons.Default.Edit, contentDescription = "Edit Data")
             }
@@ -92,7 +92,7 @@ fun DetailScreenHwn(
                         modifier = Modifier.align(Alignment.Center)
                     )
                 }
-                else if (viewModel.hwnUiState.isUiEventNotEmpty) {
+                else if (viewModel.kdgUiState.isUiEventNotEmpty) {
                     Column(
                         modifier = Modifier
                             .fillMaxSize()
@@ -109,11 +109,10 @@ fun DetailScreenHwn(
                                 verticalArrangement = Arrangement.spacedBy(8.dp)
                             ) {
                                 // Use Row for each detail with label and value aligned
-                                DetailRowHwn(label = "ID Hewan", value = hewan.id_hewan.toString())
-                                DetailRowHwn(label = "Nama Hewan", value = hewan.nama_hewan)
-                                DetailRowHwn(label = "Populasi", value = hewan.populasi)
-                                DetailRowHwn(label = "Tipe Pakan", value = hewan.tipe_pakan)
-                                DetailRowHwn(label = "Zona Wilayah", value = hewan.zona_wilayah)
+                                DetailRowKdg(label = "ID Kandang", value = kandang.id_kandang.toString())
+                                DetailRowKdg(label = "Nama Hewan", value = kandang.nama_hewan)
+                                DetailRowKdg(label = "Kapasitas", value = kandang.kapasitas)
+                                DetailRowKdg(label = "Lokasi", value = kandang.lokasi)
 
                             }
                         }
@@ -125,7 +124,7 @@ fun DetailScreenHwn(
 }
 
 @Composable
-fun DetailRowHwn(label: String, value: String) {
+fun DetailRowKdg(label: String, value: String) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.Start,

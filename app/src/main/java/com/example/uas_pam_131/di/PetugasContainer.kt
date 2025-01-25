@@ -1,10 +1,13 @@
 package com.example.uas_pam_131.di
 
 import com.example.uas_pam_131.repository.HewanRepository
+import com.example.uas_pam_131.repository.KandangRepository
 import com.example.uas_pam_131.repository.NetworkHewanRepository
+import com.example.uas_pam_131.repository.NetworkKandangRepository
 import com.example.uas_pam_131.repository.NetworkPetugasRepository
 import com.example.uas_pam_131.repository.PetugasRepository
 import com.example.uas_pam_131.service.HewanService
+import com.example.uas_pam_131.service.KandangService
 import com.example.uas_pam_131.service.PetugasService
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
@@ -14,6 +17,7 @@ import retrofit2.Retrofit
 interface AppContainer{
     val petugasRepository: PetugasRepository
     val hewanRepository: HewanRepository
+    val kandangRepository: KandangRepository
 }
 
 class PetugasContainer: AppContainer{
@@ -38,6 +42,14 @@ class PetugasContainer: AppContainer{
 
      override val hewanRepository: HewanRepository by lazy {
         NetworkHewanRepository(hewanService)
+    }
+
+    private val kandangService: KandangService by lazy {
+        retrofit.create(KandangService::class.java)
+    }
+
+    override val kandangRepository: KandangRepository by lazy {
+        NetworkKandangRepository(kandangService)
     }
 
 }

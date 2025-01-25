@@ -122,23 +122,6 @@ fun FormInputHwn(
             enabled = enabled,
             singleLine = true
         )
-        OutlinedTextField(
-            value = insertHwnUiEvent.populasi,
-            onValueChange = {onValueChange(insertHwnUiEvent.copy(populasi = it))},
-            label = { Text("Populasi Hewan") },
-            modifier = Modifier.fillMaxWidth(),
-            enabled = enabled,
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            singleLine = true
-        )
-        OutlinedTextField(
-            value = insertHwnUiEvent.zona_wilayah,
-            onValueChange = {onValueChange(insertHwnUiEvent.copy(zona_wilayah = it))},
-            label = { Text("Zona Wilayah Hewan") },
-            modifier = Modifier.fillMaxWidth(),
-            enabled = enabled,
-            singleLine = true
-        )
         Row(
             modifier = Modifier.fillMaxWidth()
         ) {
@@ -160,6 +143,24 @@ fun FormInputHwn(
                 }
             }
         }
+        OutlinedTextField(
+            value = insertHwnUiEvent.populasi,
+            onValueChange = {onValueChange(insertHwnUiEvent.copy(populasi = it))},
+            label = { Text("Populasi Hewan") },
+            modifier = Modifier.fillMaxWidth(),
+            enabled = enabled,
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            singleLine = true
+        )
+        OutlinedTextField(
+            value = insertHwnUiEvent.zona_wilayah,
+            onValueChange = {onValueChange(insertHwnUiEvent.copy(zona_wilayah = it))},
+            label = { Text("Zona Wilayah Hewan") },
+            modifier = Modifier.fillMaxWidth(),
+            enabled = enabled,
+            singleLine = true
+        )
+
 
         if (enabled){
             Text(

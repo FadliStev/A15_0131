@@ -52,6 +52,7 @@ import com.example.uas_pam_131.ui.viewmodel.petugas.HomePtgsViewModel
 @Composable
 fun HomeScreenHwn(
     navigateToltemEntry: ()-> Unit,
+    navigateBack: () -> Unit,
     modifier: Modifier = Modifier,
     onDetailClick: (Int) -> Unit = {},
     viewModel: HomeHwnViewModel = viewModel(factory = PenyediaViewModel.Factory)
@@ -66,7 +67,8 @@ fun HomeScreenHwn(
                 scrollBehavior = scrollBehavior,
                 onRefresh = {
                     viewModel.getHwn()
-                }
+                },
+                navigateUp = navigateBack
             )
         },
         floatingActionButton = {
@@ -102,7 +104,6 @@ fun HomeStatusHwn(
 ){
     when (homeHwnUiState){
         is HomeHwnUiState.Loading -> OnLoading(modifier = modifier.fillMaxSize())
-
 
         is HomeHwnUiState.Success ->
             if (homeHwnUiState.hewan.isEmpty()){
@@ -198,14 +199,6 @@ fun HwnCard(
                     text = hewan.nama_hewan,
                     style = MaterialTheme.typography.titleLarge
                 )
-                Text(
-                    text = hewan.populasi,
-                    style = MaterialTheme.typography.titleLarge
-                )
-                Text(
-                    text = hewan.zona_wilayah,
-                    style = MaterialTheme.typography.titleLarge
-                )
 
                 Spacer(Modifier.weight(1f))
                 IconButton(onClick = {onDeleteClick(hewan)}) {
@@ -213,7 +206,18 @@ fun HwnCard(
                         contentDescription = null)
                 }
 
+
             }
+            Text(
+                text = hewan.populasi,
+                style = MaterialTheme.typography.titleLarge
+            )
+            Text(
+                text = hewan.zona_wilayah,
+                style = MaterialTheme.typography.titleLarge
+            )
+
+
         }
     }
 }

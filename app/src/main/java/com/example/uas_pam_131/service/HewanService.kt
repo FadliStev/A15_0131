@@ -26,7 +26,7 @@ interface HewanService {
     suspend fun getHewan(): HewanResponse
 
     @GET("hewan/{id_hewan}")
-    suspend fun getHewanById(@Path("id_Hewan") id_hewan: Int): HewanResponseDetail
+    suspend fun getHewanById(@Path("id_hewan") id_hewan: Int): HewanResponseDetail
 
     @POST("hewan/add")
     suspend fun insertHewan(@Body hewan: Hewan)
