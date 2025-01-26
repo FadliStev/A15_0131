@@ -85,3 +85,28 @@ object DestinasiUpdateKdg: DestinasiNavigasi {
     val routesWithArg = "$route/{$ID_KANDANG}"
 }
 
+object DestinasiHomeMtg: DestinasiNavigasi{
+    override val route = "HomeMtg"
+    override val titleRes = "Home Monitoring"
+}
+
+object DestinasiInsertMtg: DestinasiNavigasi{
+    override val route= "item_entryMtg"
+    override val titleRes = "Entry Monitoring"
+
+}
+
+object DestinasiDetailMtg : DestinasiNavigasi {
+    override val route = "detail/{id_monitoring}"
+    override val titleRes = "Detail Monitoring"
+    const val ID_MONITORING = "id_monitoring"
+    val routeWithArgs = "$route/{$ID_MONITORING}"
+}
+
+object DestinasiUpdateMtg: DestinasiNavigasi {
+    override val route = "updateMtg"
+    override val titleRes = "Update Monitoring"
+    const val ID_MONITORING = "id_monitoring"
+    val routesWithArg = "$route/{$ID_MONITORING}"
+}
+

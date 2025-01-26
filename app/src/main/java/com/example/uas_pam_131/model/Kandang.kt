@@ -2,11 +2,13 @@ package com.example.uas_pam_131.model
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import kotlinx.serialization.Serializable
 
 @Entity(
     tableName = "kandang",
+    indices = [Index(value = ["id_kandang"], unique = true)],
     foreignKeys = [
         ForeignKey(
             entity = Hewan::class,

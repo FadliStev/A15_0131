@@ -17,6 +17,10 @@ import com.example.uas_pam_131.ui.view.kandang.DetailScreenKdg
 import com.example.uas_pam_131.ui.view.kandang.EntryKdgScreen
 import com.example.uas_pam_131.ui.view.kandang.HomeScreenKdg
 import com.example.uas_pam_131.ui.view.kandang.UpdateScreenKdg
+import com.example.uas_pam_131.ui.view.monitoring.DetailScreenMtg
+import com.example.uas_pam_131.ui.view.monitoring.EntryMtgScreen
+import com.example.uas_pam_131.ui.view.monitoring.HomeScreenMtg
+import com.example.uas_pam_131.ui.view.monitoring.UpdateScreenMtg
 import com.example.uas_pam_131.ui.view.petugas.DetailScreen
 import com.example.uas_pam_131.ui.view.petugas.EntryMhsScreen
 import com.example.uas_pam_131.ui.view.petugas.HomeScreen
@@ -41,7 +45,7 @@ fun PengelolaHalaman(navController: NavHostController = rememberNavController())
                     navController.navigate(DestinasiHomeHwn.route)
                 },
                 onNavigateMonitoring = {
-                    navController.navigate(DestinasiHomePtgs.route)
+                    navController.navigate(DestinasiHomeMtg.route)
                 },
                 onNavigateKandang = {
                     navController.navigate(DestinasiHomeKdg.route)
@@ -239,6 +243,71 @@ fun PengelolaHalaman(navController: NavHostController = rememberNavController())
                     onNavigate = {
                         navController.navigate(DestinasiHomeKdg.route) {
                             popUpTo(DestinasiHomeKdg.route) { inclusive = true }
+                        }
+                    },
+                    modifier = Modifier
+                )
+            }
+        }
+
+        composable(DestinasiHomeMtg.route) {
+            HomeScreenMtg(
+                navigateToltemEntry = { navController.navigate(DestinasiInsertMtg.route) },
+                onDetailClick = {id_monitoring ->
+                    navController.navigate("${DestinasiDetailMtg.route}/$id_monitoring")
+                },
+                navigateBack = {
+                    navController.navigate(DestinasiHome.route)
+                }
+            )
+        }
+
+        composable(DestinasiInsertMtg.route) {
+            EntryMtgScreen(navigateBack = {
+                navController.navigate(DestinasiHomeMtg.route) {
+                    popUpTo(DestinasiHomeMtg.route) {
+                        inclusive = true
+                    }
+                }
+            })
+        }
+        composable(
+            DestinasiDetailMtg.routeWithArgs,
+            arguments = listOf(
+                navArgument(DestinasiDetailMtg.ID_MONITORING) {
+                    type = NavType.StringType
+                }
+            )
+        ) {
+            val id_monitoring = it.arguments?.getString(DestinasiDetailMtg.ID_MONITORING)
+            id_monitoring?.let { id_monitoring ->
+                DetailScreenMtg(
+                    onBackClick = {
+                        navController.popBackStack()
+                    },
+                    onEditClick = {
+                        navController.navigate("${DestinasiUpdateMtg.route}/$id_monitoring")
+                    },
+                    id_monitoring = id_monitoring.toInt(),
+                    onDeleteClick = {
+                        navController.popBackStack()
+                    }
+                )
+            }
+        }
+        composable(
+            route = DestinasiUpdateMtg.routesWithArg,
+            arguments = listOf(
+                navArgument(DestinasiUpdateMtg.ID_MONITORING) { type = NavType.StringType }
+            )
+        ) { backStackEntry ->
+            val id_monitoring = backStackEntry.arguments?.getString(DestinasiUpdateMtg.ID_MONITORING)
+            id_monitoring?.let {
+                UpdateScreenMtg(
+                    onBack = { navController.popBackStack() },
+                    onNavigate = {
+                        navController.navigate(DestinasiHomeMtg.route) {
+                            popUpTo(DestinasiHomeMtg.route) { inclusive = true }
                         }
                     },
                     modifier = Modifier

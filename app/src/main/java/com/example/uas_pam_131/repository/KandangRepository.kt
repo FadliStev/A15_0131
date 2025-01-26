@@ -1,8 +1,5 @@
 package com.example.uas_pam_131.repository
 
-import com.example.uas_pam_131.model.Hewan
-import com.example.uas_pam_131.model.HewanResponse
-import com.example.uas_pam_131.model.HewanResponseDetail
 import com.example.uas_pam_131.model.Kandang
 import com.example.uas_pam_131.model.KandangResponse
 import com.example.uas_pam_131.model.KandangResponseDetail
