@@ -27,8 +27,13 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -158,23 +163,46 @@ fun KdgLayout(
     onDetailClick: (Kandang) -> Unit,
     onDeleteClick: (Kandang) -> Unit = {}
 ){
-    LazyColumn(
-        modifier = modifier,
-        contentPadding = PaddingValues(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        items(kandang){ kandang ->
-            KdgCard(
-                kandang = kandang,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable { onDetailClick(kandang) },
-                onDeleteClick = {
-                    onDeleteClick(kandang)
-                }
-            )
-        }
+
+    var searchQuery by remember { mutableStateOf("") }
+
+    // Filter daftar hewan berdasarkan query pencarian
+    val filteredKandangList = kandang.filter {
+        it.nama_hewan.contains(searchQuery, ignoreCase = true)
     }
+
+    Column(
+        modifier = modifier.padding(16.dp)
+    ) {
+        // Input pencarian
+        TextField(
+            value = searchQuery,
+            onValueChange = { searchQuery = it },
+            label = { Text("Cari Hewan") },
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true,
+        )
+
+        LazyColumn(
+            modifier = modifier,
+            contentPadding = PaddingValues(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            items(filteredKandangList){ kandang ->
+                KdgCard(
+                    kandang = kandang,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable { onDetailClick(kandang) },
+                    onDeleteClick = {
+                        onDeleteClick(kandang)
+                    }
+                )
+            }
+        }
+
+    }
+
 }
 
 @Composable
@@ -211,11 +239,11 @@ fun KdgCard(
             }
             Text(
                 text = kandang.kapasitas,
-                style = MaterialTheme.typography.titleLarge
+                style = MaterialTheme.typography.titleMedium
             )
             Text(
                 text = kandang.lokasi,
-                style = MaterialTheme.typography.titleLarge
+                style = MaterialTheme.typography.titleMedium
             )
 
 
